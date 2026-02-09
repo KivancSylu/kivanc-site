@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X O X Oyunu</title>
+    
+</head>
+  <style>
+    body {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0px;
+  color: darkgoldenrod;
+  background: linear-gradient(
+  to bottom,
+  rgba(40, 40, 40, 1),
+  rgba(20, 20, 20, 1)
+);
+}
+.container {
+  background-color: darkgray;
+  text-align: center;
+  padding : 40px;
+  border-radius: 10px;
+  box-shadow:  0 0 10 rgba(0, 0, 0, 0.5);
+
+}
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3,150px);
+  grid-gap:  10px;
+  margin-bottom: 20px;
+
+}
+.hücre {
+  width: 150px;
+  height: 150px;
+  background-color: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.hücre:hover {
+  background-color: gray;
+}
+.message {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.restart-btn {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: darkgoldenrod;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+  </style>
+<body>
+<div class="container">
+    <div class="game-board">
+        <div class="hücre" onclick="makemove(0)"></div>
+        <div  class="hücre"onclick="makemove(1)"></div>
+        <div class="hücre" onclick="makemove(2)"></div>
+        <div class="hücre" onclick="makemove(3)"></div>
+        <div class="hücre" onclick="makemove(4)"></div>
+        <div class="hücre" onclick="makemove(5)"></div>
+        <div class="hücre" onclick="makemove(6)"></div>
+        <div class="hücre" onclick="makemove(7)"></div>
+        <div class="hücre" onclick="makemove(8)"></div>
+    </div>
+        <div class="message" id="message"></div>
+        <button class="restart-btn" onclick="restartGame()">Yeniden Oyna</button>
+
+</div>
+
+<script>
+const cells = document.querySelectorAll(".hücre");
+let currentPlayer = "X";
+let isGameActive = true;
+
+cells.forEach((cell, index) => {
+  cell.addEventListener("click", () => makeMove(index));
+});
+
+function makeMove(index) {
+  if (!isGameActive) return;
+  if (cells[index].innerText !== "") return;
+
+  cells[index].innerText = currentPlayer;
+
+  checkWinner(); // 👈 BURASI
+
+  if (isGameActive) {
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+  }
+}
+
+
+function restartGame() {
+  cells.forEach(cell => cell.innerText = "");
+  currentPlayer = "X";
+  isGameActive = true;
+}
+const winPatterns = [
+  [0,1,2], [3,4,5], [6,7,8], // satırlar
+  [0,3,6], [1,4,7], [2,5,8], // sütunlar
+  [0,4,8], [2,4,6]          // çapraz
+];
+function checkWinner() {
+  for (let pattern of winPatterns) {
+    const [a, b, c] = pattern;
+
+    if (
+      cells[a].innerText &&
+      cells[a].innerText === cells[b].innerText &&
+      cells[a].innerText === cells[c].innerText
+    ) {
+      isGameActive = false;
+      alert(`🎉 Kazanan: ${cells[a].innerText}`);
+      return;
+    }
+  }
+
+  // Beraberlik kontrolü
+  const isDraw = [...cells].every(cell => cell.innerText !== "");
+  if (isDraw) {
+    isGameActive = false;
+    alert("🤝 Berabere!");
+  }
+}
+
+</script>
+
+
+</body>
+</html>

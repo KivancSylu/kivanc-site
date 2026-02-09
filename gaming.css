@@ -1,0 +1,60 @@
+body {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0px;
+  color: darkgoldenrod;
+  background: linear-gradient(
+  to bottom,
+  rgba(40, 40, 40, 1),
+  rgba(20, 20, 20, 1)
+);
+}
+.container {
+  background-color: darkgray;
+  text-align: center;
+  padding : 40px;
+  border-radius: 10px;
+  box-shadow:  0 0 10 rgba(0, 0, 0, 0.5);
+
+}
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3,150px);
+  grid-gap:  10px;
+  margin-bottom: 20px;
+
+}
+.hücre {
+  width: 150px;
+  height: 150px;
+  background-color: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.hücre:hover {
+  background-color: gray;
+}
+.message {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.restart-btn {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: darkgoldenrod;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
